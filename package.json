@@ -1,0 +1,17 @@
+{
+	"name": "web-meteo",
+	"version": "1.0.0",
+	"description": "Weather forecast web application",
+	"main": "index.html",
+	"scripts": {
+		"start": "serve .",
+		"build": "echo 'Static site - no build required'"
+	},
+	"keywords": [
+		"weather",
+		"forecast",
+		"static"
+	],
+	"author": "",
+	"license": "MIT"
+}
