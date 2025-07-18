@@ -1,15 +1,9 @@
 import { apiKey, baseUrl } from './apiKeyAndHost.js'
-
-const searchForm = document.querySelector('.search-form')
-const cityInput = document.querySelector('.city-input')
-
-searchForm.addEventListener('submit', async (e) => {
-	e.preventDefault()
-		getGeoData()
-})
+import { cityInput } from '../components/inputForm.js'
+import { showError } from '../components/error.js'
 
 export const getGeoData = async () => {
-	const city = cityInput.value.trim()
+	const city = cityInput.value
 
 	if (!city) return
 
