@@ -1,11 +1,13 @@
 import { apiKey, baseUrl } from './apiKeyAndHost.js'
 import { cityInput } from '../components/inputForm.js'
 import { showError } from '../components/error.js'
+import { replaceAbbreviations } from '../helpers/cityAbbreviation.js'
+import { saveCityToLocalStorage } from '../helpers/saveCityToLocalStorage.js'
 
 export const getGeoData = async () => {
-	const city = cityInput.value
+	let city = cityInput.value.trim()
 
-	if (!city) return
+	city = replaceAbbreviations(city)
 
 	try {
 		const geoUrl = `${baseUrl}/geo/1.0/direct`
@@ -27,8 +29,11 @@ export const getGeoData = async () => {
 
 		console.log(lat, lon)
 
+		saveCityToLocalStorage(city)
+
 	} catch (error) {
 		console.error(error.message)
+		showError('Data not received')
 	}
 
 
