@@ -1,5 +1,6 @@
 export const capitalizeCity = city => {
 	if (!city) return city
+
 	return city
 		.toLowerCase()
 		.split(/[\s-]/)
