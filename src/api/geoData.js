@@ -6,7 +6,7 @@ import { apiKey, baseUrl } from './apiKeyAndHost.js'
 import { getWeather, getForecast } from './getWeatherAndForecast.js'
 import { renderCurrentWeather } from '../../components/currentWeather.js'
 import { renderHourlyForecast } from '../../components/hourlyForecast.js'
-
+import { renderDailyForecast } from '../../components/dailyForecast.js'
 
 export const getGeoData = async (cityParam = null) => {
 	let city = cityParam || cityInput.value.trim()
