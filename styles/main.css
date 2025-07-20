@@ -42,7 +42,7 @@ main {
 	transition: background-color 1s ease;
 }
 
-/* Дополнительные стили*/
+/* Additional styles */
 #error-message {
 	color: red;
 	font-size: 1.2rem;

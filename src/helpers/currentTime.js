@@ -1,11 +1,11 @@
-export const formatTime = (date) => {
-	const datePart = date.toLocaleDateString('uk-UA', {
+export const formatDate = date => {
+	const datePart = date.toLocaleDateString('en', {
 		weekday: 'short',
 		day: 'numeric',
 		month: 'short',
 	})
 
-	const timePart = date.toLocaleTimeString('uk-UA', {
+	const timePart = date.toLocaleTimeString('en', {
 		hour: '2-digit',
 		minute: '2-digit',
 	})
@@ -18,9 +18,7 @@ export const renderCurrentTime = () => {
 	const currentTime = new Date()
 
 	const formattedTime = formatDate(currentTime)
-	nowElement.textContent = `Current time: ${formattedTime}`
+	nowElement.textContent = `Now: ${formattedTime}`
 }
 
-setInterval(() => {
-	renderCurrentTime()
-}, 1000)
+setInterval(renderCurrentTime, 60000)

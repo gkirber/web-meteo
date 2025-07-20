@@ -5,7 +5,7 @@ export const renderDailyForecast = data => {
 	dailyForecast.innerHTML = ''
 
 	if (!data) {
-		showError('Weather data is unavailable')
+		showError('Weather data unavailable')
 	}
 
 	const groupedData = groupDataByDay(data.list)
@@ -26,13 +26,13 @@ export const renderDailyForecast = data => {
 
 			const date = new Date(dayData[0].dt * 1000)
 
-			const dayName = date.toLocaleDateString('uk-UA', {
+			const dayName = date.toLocaleDateString('en-US', {
 				weekday: 'short',
 			})
 
 			const dayNumber = date.getDate()
 
-			const monthName = date.toLocaleDateString('uk-UA', {
+			const monthName = date.toLocaleDateString('en-US', {
 				month: 'short',
 			})
 
@@ -59,7 +59,7 @@ const groupDataByDay = list => {
 
 	list.forEach(item => {
 		const date = new Date(item.dt * 1000)
-		const dayKey = date.toLocaleDateString('uk-UA')
+		const dayKey = date.toLocaleDateString('en-US')
 
 		if (!groupedData[dayKey]) {
 			groupedData[dayKey] = []

@@ -56,8 +56,8 @@ const geoLocationName = async (latitude, longitude) => {
 
 		if (data && data.length > 0) {
 			const { local_names } = data[0]
-			const ukrainianName = local_names?.ua || data[0].name
-			return `${ukrainianName}`
+			const englishName = local_names?.en || data[0].name
+			return `${englishName}`
 		} else {
 			throw new Error('Place name not found')
 		}
@@ -77,6 +77,6 @@ const fetchWeatherByCoords = async (latitude, longitude, locationName) => {
 		renderDailyForecast(forecastData)
 	} catch (error) {
 		console.error(error.message)
-		showError('Unable to get weather data. Please try again later')
+		showError('Failed to get weather data. Please try again later')
 	}
 }

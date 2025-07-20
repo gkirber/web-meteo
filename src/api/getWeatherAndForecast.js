@@ -7,7 +7,7 @@ const fetchData = async (endpoint, lat, lon) => {
 		lat: lat,
 		lon: lon,
 		appid: apiKey,
-		lang: 'ua',
+		lang: 'en',
 		units: 'metric',
 	})
 
@@ -16,7 +16,7 @@ const fetchData = async (endpoint, lat, lon) => {
 	const response = await fetch(url)
 
 	if (!response.ok) {
-		throw new Error(`Failed to load weather data`)
+		throw new Error('Failed to load weather data')
 	}
 
 	return response.json()

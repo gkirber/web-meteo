@@ -1,8 +1,11 @@
-import { updateWindDirection } from '../src/helpers/windParam.js'
-import { updateHumidityScale } from '../src/helpers/humidityParam.js'
-import { formatTime } from '../src/helpers/formatTime.js'
-import { calcDayLength } from '../src/helpers/calcDayLength.js'
-import { calcSunPosition, updateSunPosition } from '../src/helpers/calcSunPosition.js'
+import { calcDayLength } from '../helpers/calcDayLength.js'
+import {
+	calcSunPosition,
+	updateSunPosition,
+} from '../helpers/calcSunPosition.js'
+import { formatTime } from '../helpers/formatTime.js'
+import { updateHumidityScale } from '../helpers/humidityParam.js'
+import { updateWindDirection } from '../helpers/windParam.js'
 
 const currentCity = document.querySelector('.city')
 const currentTemp = document.querySelector('.temperature')
@@ -17,22 +20,25 @@ const sunriseItem = document.querySelector('.sunrise')
 const sunsetItem = document.querySelector('.sunset')
 const dayLength = document.querySelector('.day-length')
 
-
 export const renderCurrentWeather = (data, city) => {
 	currentCity.textContent = city || 'Unknown'
-	currentTemp.textContent = `${Math.round(data.main?.temp || 0)}°C`
-	feelsLike.textContent = `${Math.round(data.main?.feels_like || 0)}°C`
+	currentTemp.textContent = `${Math.round(data.main?.temp || 0)} °C`
+	feelsLike.textContent = `Feels like ${Math.round(data.main?.feels_like || 0)}°C`
 	currentDescription.textContent = data.weather?.[0]?.description || 'Unknown'
-	currentWeatherIcon.src = `https://openweathermap.org/img/wn/${data.weather?.[0]?.icon || '01d'}@2x.png`
+	currentWeatherIcon.src = `https://openweathermap.org/img/wn/${
+		data.weather?.[0]?.icon || '01d'
+	}@2x.png`
 	currentWind.textContent = `${Math.round(data.wind?.speed || 0)} m/s`
 	const visibility = data.visibility || 0
 	if (visibility > 1000) {
-		currentVisibility.textContent = `${visibility / 1000} km`
+		currentVisibility.textContent = `${(visibility / 1000).toFixed(1)} km`
 	} else {
 		currentVisibility.textContent = `${visibility} m`
 	}
 	currentHumidity.textContent = `${data.main?.humidity || 0}%`
-	currentPressure.textContent = `${Math.round((data.main?.pressure || 0) * 0.750062)} mmHg`
+	currentPressure.textContent = `${Math.round(
+		(data.main?.pressure || 0) * 0.750062
+	)} mmHg`
 
 	const windDegrees = data.wind?.deg || 0
 	updateWindDirection(windDegrees)
@@ -44,10 +50,12 @@ export const renderCurrentWeather = (data, city) => {
 
 	const { timezone } = data || {}
 
-	sunriseItem.textContent = sunrise ? formatTime(sunrise, timezone) : 'N/A'
-	sunsetItem.textContent = sunset ? formatTime(sunset, timezone) : 'N/A'
+	sunriseItem.textContent = sunrise ? formatTime(sunrise, timezone) : 'Unknown'
+	sunsetItem.textContent = sunset ? formatTime(sunset, timezone) : 'Unknown'
 
-	dayLength.textContent = `Day length: ${sunrise && sunset ? calcDayLength(sunrise, sunset) : 'N/A'}`
+	dayLength.textContent = `Day length: ${
+		sunrise && sunset ? calcDayLength(sunrise, sunset) : 'Unknown'
+	}`
 
 	const sunPosition = sunrise && sunset ? calcSunPosition(sunrise, sunset) : 0
 	updateSunPosition(sunPosition)

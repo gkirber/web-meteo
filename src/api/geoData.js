@@ -1,22 +1,26 @@
-import { showError } from '../../components/error.js'
-import { cityInput } from '../../components/inputForm.js'
-import { replaceAbbreviations } from '../helpers/cityAbbreviation.js'
+import { renderCurrentWeather } from '../components/currentWeather.js'
+import { renderDailyForecast } from '../components/dailyForecast.js'
+import { showError } from '../components/error.js'
+import { renderHourlyForecast } from '../components/hourlyForecast.js'
+import { cityInput } from '../components/inputForm.js'
+import { isCyrillic } from '../helpers/checkCyrillic.js'
+import { replaceAbbreviation } from '../helpers/cityAbbreviation.js'
 import { saveCityToLocalStorage } from '../helpers/saveCityToLocalStorage.js'
 import { apiKey, baseUrl } from './apiKeyAndHost.js'
-import { getWeather, getForecast } from './getWeatherAndForecast.js'
-import { renderCurrentWeather } from '../../components/currentWeather.js'
-import { renderHourlyForecast } from '../../components/hourlyForecast.js'
-import { renderDailyForecast } from '../../components/dailyForecast.js'
+import { getForecast, getWeather } from './getWeatherAndForecast.js'
 
-export const getGeoData = async (cityParam = null) => {
-	let city = cityParam || cityInput.value.trim()
+export const getGeoData = async () => {
+	let city = cityInput.value.trim()
 
-	// Якщо місто порожнє, не робимо запит
 	if (!city) {
 		return
 	}
+	if (!isCyrillic(city)) {
+		showError('Check city name')
+		return
+	}
 
-	city = replaceAbbreviations(city)
+	city = replaceAbbreviation(city)
 
 	try {
 		const geoUrl = `${baseUrl}/geo/1.0/direct`
@@ -31,7 +35,7 @@ export const getGeoData = async (cityParam = null) => {
 		const geoData = await geoResponse.json()
 
 		if (!geoData.length) {
-			throw new Error('No matching city found')
+			throw new Error('City not found')
 		}
 
 		const { lat, lon } = geoData[0]
@@ -40,9 +44,6 @@ export const getGeoData = async (cityParam = null) => {
 
 		const weatherData = await getWeather(lat, lon)
 		const forecastData = await getForecast(lat, lon)
-
-		console.log(weatherData)
-		console.log(forecastData)
 
 		renderCurrentWeather(weatherData, city)
 		renderHourlyForecast(forecastData)

@@ -3,5 +3,5 @@ export function calcDayLength(sunrise, sunset) {
 	const hours = Math.floor(diffInSeconds / 3600)
 	const minutes = Math.floor((diffInSeconds % 3600) / 60)
 
-	return `${hours}h ${minutes}m`
+	return `${hours} hr ${minutes} min`
 }
