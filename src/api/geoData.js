@@ -43,7 +43,7 @@ export const getGeoData = async (cityParam = null) => {
 		console.log(forecastData)
 
 		renderCurrentWeather(weatherData, city)
-
+		renderHourlyForecast(forecastData)
 	} catch (error) {
 		console.error(error.message)
 		showError('Data not received')
