@@ -4,6 +4,8 @@ import { replaceAbbreviations } from '../helpers/cityAbbreviation.js'
 import { saveCityToLocalStorage } from '../helpers/saveCityToLocalStorage.js'
 import { apiKey, baseUrl } from './apiKeyAndHost.js'
 import { getWeather, getForecast } from './getWeatherAndForecast.js'
+import { renderCurrentWeather } from '../../components/currentWeather.js'
+import { renderHourlyForecast } from '../../components/hourlyForecast.js'
 
 
 export const getGeoData = async (cityParam = null) => {
@@ -44,6 +46,7 @@ export const getGeoData = async (cityParam = null) => {
 
 		renderCurrentWeather(weatherData, city)
 		renderHourlyForecast(forecastData)
+		renderDailyForecast(forecastData)
 	} catch (error) {
 		console.error(error.message)
 		showError('Data not received')
