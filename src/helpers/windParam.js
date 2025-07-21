@@ -1,12 +1,12 @@
 export function updateWindDirection(windDeg) {
-	const windIcon = document.querySelector('.wind-direction-icon')
-	const windText = document.querySelector('.wind-direction-text')
+	const windIcon = document.getElementById('wind-direction-icon')
+	const windText = document.getElementById('wind-direction-text')
 
-	const iconRotate = (windDeg + 180) % 360
-	windIcon.style.transform = `rotate(${iconRotate}deg)`
+	const iconRotation = (windDeg + 180) % 360
+	windIcon.style.transform = `rotate(${iconRotation}deg)`
 
 	const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
 	const normalizedDegrees = (windDeg + 360) % 360
 	const index = Math.round(normalizedDegrees / 45) % 8
-	windText.textContent = directions[index] || 'N/d'
+	windText.textContent = directions[index] || 'N/A'
 }

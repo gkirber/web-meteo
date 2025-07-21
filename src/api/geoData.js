@@ -3,8 +3,7 @@ import { renderDailyForecast } from '../components/dailyForecast.js'
 import { showError } from '../components/error.js'
 import { renderHourlyForecast } from '../components/hourlyForecast.js'
 import { cityInput } from '../components/inputForm.js'
-import { isCyrillic } from '../helpers/checkCyrillic.js'
-import { replaceAbbreviation } from '../helpers/cityAbbreviation.js'
+import { replaceAbbreviations } from '../helpers/cityAbbreviation.js'
 import { saveCityToLocalStorage } from '../helpers/saveCityToLocalStorage.js'
 import { apiKey, baseUrl } from './apiKeyAndHost.js'
 import { getForecast, getWeather } from './getWeatherAndForecast.js'
@@ -15,12 +14,8 @@ export const getGeoData = async () => {
 	if (!city) {
 		return
 	}
-	if (!isCyrillic(city)) {
-		showError('Check city name')
-		return
-	}
 
-	city = replaceAbbreviation(city)
+	city = replaceAbbreviations(city)
 
 	try {
 		const geoUrl = `${baseUrl}/geo/1.0/direct`
